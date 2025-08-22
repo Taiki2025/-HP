@@ -10,69 +10,133 @@
     <!-- ヘッダー -->
     <header class="header">
         <div class="header-container">
-            <div class="logo">
-                <img src="logo.svg" alt="九州電力株式会社" class="logo-img">
-                <h1 class="company-name">九州電力株式会社</h1>
+            <div class="header-top">
+                <div class="logo">
+                    <img src="九州電力ロゴ.png" alt="九州電力株式会社" class="logo-img">
+                </div>
+                <div class="header-actions">
+                <div class="utility-nav">
+                    <div class="language-selector">
+                        <select id="languageSelect">
+                            <option value="ja">languages</option>
+                            <option value="en">English</option>
+                            <option value="ko">한국어</option>
+                            <option value="zh">中文</option>
+                        </select>
+                    </div>
+                    <button class="login-btn">My九電ログイン</button>
+                </div>
+                <div class="nav-bottom">
+                    <div class="nav-links">
+                        <a href="#faq" class="nav-link">よくあるご質問</a>
+                        <span class="copy-icon">📋</span>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" placeholder="キーワードを入力" class="search-input">
+                        <button class="search-btn">🔍</button>
+                    </div>
+                </div>
+                <button class="menu-toggle" id="menuToggle">☰</button>
+                </div>
             </div>
             <nav class="main-nav">
-                <ul class="nav-list">
-                    <li><a href="#home">ホーム</a></li>
-                    <li><a href="#services">サービス</a></li>
-                    <li><a href="#usage">電気使用量</a></li>
-                    <li><a href="#billing">料金・請求</a></li>
-                    <li><a href="#support">サポート</a></li>
-                    <li><a href="#contact">お問い合わせ</a></li>
-                </ul>
+                <div class="category-menu">
+                    <a href="#" class="category-btn blue">引越し・各種手続き</a>
+                    <a href="#" class="category-btn orange">電気</a>
+                    <a href="#" class="category-btn pink">オール電化</a>
+                    <a href="#" class="category-btn green">ガス</a>
+                    <a href="#" class="category-btn light-blue">くらしサービス</a>
+                    <a href="#" class="category-btn dark-green">イベント・営業所</a>
+                </div>
             </nav>
-            <div class="header-actions">
-                <button class="login-btn">ログイン</button>
-                <button class="menu-toggle" id="menuToggle">☰</button>
-            </div>
         </div>
     </header>
 
     <!-- メインコンテンツ -->
     <main>
-        <!-- ヒーローセクション -->
-        <section class="hero" id="home">
-            <div class="hero-content">
-                <h2 class="hero-title">安心・信頼・革新</h2>
-                <p class="hero-subtitle">九州電力は、持続可能なエネルギーの未来を創造します</p>
-                <div class="hero-buttons">
-                    <a href="#services" class="btn btn-primary">サービスを見る</a>
-                    <a href="#contact" class="btn btn-secondary">お問い合わせ</a>
+        <!-- メインビジュアル -->
+        <section class="main-visual" id="home">
+            <div class="visual-content">
+                <div class="visual-text">
+                    <h2 class="visual-title">お客さまの快適な暮らしを<br>確かな電力でサポート</h2>
+                    <p class="visual-subtitle">九州電力は、地域に根ざした電力会社として<br>安全で安定した電気をお届けしています</p>
+                </div>
+                <div class="visual-actions">
+                    <div class="action-card">
+                        <h3>新規お申し込み</h3>
+                        <p>電気のご利用開始手続き</p>
+                        <a href="#" class="action-btn primary">詳しく見る</a>
+                    </div>
+                    <div class="action-card">
+                        <h3>各種お手続き</h3>
+                        <p>契約変更・引越し手続き</p>
+                        <a href="#" class="action-btn secondary">詳しく見る</a>
+                    </div>
+                    <div class="action-card">
+                        <h3>電気料金メニュー</h3>
+                        <p>お得な料金プランをご紹介</p>
+                        <a href="#" class="action-btn secondary">詳しく見る</a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- サービスセクション -->
+        <!-- お客さま向けサービス -->
         <section class="services" id="services">
             <div class="container">
-                <h2 class="section-title">主なサービス</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon">💡</div>
-                        <h3>電気料金・請求</h3>
-                        <p>電気料金の確認や請求書のダウンロードができます。</p>
-                        <a href="#" class="service-link">詳細を見る</a>
+                <h2 class="section-title">お客さま向けサービス</h2>
+                <div class="services-container">
+                    <div class="service-category">
+                        <h3 class="category-title">電気のご利用</h3>
+                        <div class="service-items">
+                            <a href="#" class="service-item">
+                                <span class="service-icon">🏠</span>
+                                <div class="service-text">
+                                    <h4>新規お申し込み</h4>
+                                    <p>電気のご利用開始手続き</p>
+                                </div>
+                            </a>
+                            <a href="#" class="service-item">
+                                <span class="service-icon">📋</span>
+                                <div class="service-text">
+                                    <h4>各種お手続き</h4>
+                                    <p>契約変更・引越し手続き</p>
+                                </div>
+                            </a>
+                            <a href="#" class="service-item">
+                                <span class="service-icon">💰</span>
+                                <div class="service-text">
+                                    <h4>電気料金メニュー</h4>
+                                    <p>お得な料金プランをご紹介</p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                    <div class="service-card">
-                        <div class="service-icon">📊</div>
-                        <h3>電気使用量</h3>
-                        <p>日々の電気使用量を確認し、節電に役立てましょう。</p>
-                        <a href="#" class="service-link">詳細を見る</a>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">🔧</div>
-                        <h3>各種お手続き</h3>
-                        <p>契約内容の変更や解約手続きがオンラインで可能です。</p>
-                        <a href="#" class="service-link">詳細を見る</a>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">🌱</div>
-                        <h3>環境・省エネ</h3>
-                        <p>環境にやさしい電力と省エネの取り組みをご紹介します。</p>
-                        <a href="#" class="service-link">詳細を見る</a>
+                    <div class="service-category">
+                        <h3 class="category-title">My九電</h3>
+                        <div class="service-items">
+                            <a href="#" class="service-item">
+                                <span class="service-icon">📊</span>
+                                <div class="service-text">
+                                    <h4>電気使用量・料金</h4>
+                                    <p>使用量や料金をWEBで確認</p>
+                                </div>
+                            </a>
+                            <a href="#" class="service-item">
+                                <span class="service-icon">📄</span>
+                                <div class="service-text">
+                                    <h4>検針票・請求書</h4>
+                                    <p>WEB検針票・請求書の確認</p>
+                                </div>
+                            </a>
+                            <a href="#" class="service-item">
+                                <span class="service-icon">⚙️</span>
+                                <div class="service-text">
+                                    <h4>契約内容の確認・変更</h4>
+                                    <p>ご契約情報の確認と変更</p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,10 +145,10 @@
         <!-- 電気使用量セクション -->
         <section class="usage" id="usage">
             <div class="container">
-                <h2 class="section-title">電気使用量の確認</h2>
+                <h2 class="section-title">電気のご使用状況</h2>
                 <div class="usage-dashboard">
                     <div class="usage-summary">
-                        <h3>今月の使用量</h3>
+                        <h3>当月のご使用量</h3>
                         <div class="usage-meter">
                             <div class="meter-display">
                                 <span class="usage-number">245</span>
@@ -94,15 +158,15 @@
                                 <div class="progress-bar" style="width: 75%"></div>
                             </div>
                             <div class="usage-comparison">
-                                <span class="comparison-text">前月比: <span class="comparison-value up">+12%</span></span>
+                                <span class="comparison-text">前月同期比: <span class="comparison-value up">+12%</span></span>
                             </div>
                         </div>
                     </div>
                     <div class="usage-chart">
-                        <h3>使用量推移</h3>
+                        <h3>ご使用量の推移</h3>
                         <div class="chart-placeholder">
-                            <p>チャート表示エリア</p>
-                            <p>（実際のデータでグラフが表示されます）</p>
+                            <p>使用量グラフ表示エリア</p>
+                            <p>（お客さまの電気使用量データが表示されます）</p>
                         </div>
                     </div>
                 </div>
@@ -179,6 +243,56 @@
             </div>
         </div>
     </footer>
+
+    <!-- チャットボット -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <!-- チャットボットボタン -->
+        <button class="chatbot-toggle" id="chatbotToggle">
+            <img src="九州電力「みらいくん」.png" alt="みらいくん" class="chatbot-avatar">
+        </button>
+        
+        <!-- 吹き出しメッセージ -->
+        <div class="speech-bubble" id="speechBubble">
+            <div class="bubble-content">
+                ちゃちゃっと解決！
+            </div>
+            <div class="bubble-arrow"></div>
+        </div>
+
+        <!-- チャットウィンドウ -->
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="header-avatar">
+                    <img src="九州電力「みらいくん」.png" alt="みらいくん" class="header-avatar-img">
+                </div>
+                <div class="header-text">
+                    <h4>みらいくん</h4>
+                </div>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        <p>こんにちは！みらいくんです🌟</p>
+                        <p>電力の申し込みやお手続きについて、何でもお気軽にご質問ください！</p>
+                    </div>
+                    <div class="message-time">今すぐ</div>
+                </div>
+            </div>
+
+            <div class="chatbot-quick-actions">
+                <button class="quick-action" data-message="新規お申し込みについて教えてください">新規申し込み</button>
+                <button class="quick-action" data-message="契約内容の変更をしたいです">契約変更</button>
+                <button class="quick-action" data-message="電気料金について知りたいです">料金について</button>
+                <button class="quick-action" data-message="引っ越し手続きについて教えてください">引っ越し手続き</button>
+            </div>
+
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="メッセージを入力してください..." maxlength="200">
+                <button id="chatbotSend">送信</button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
