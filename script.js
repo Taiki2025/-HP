@@ -5,16 +5,36 @@ let isChatbotOpen = false;
 // チャットボットの応答データベース
 const chatbotResponses = {
     '新規申し込み': {
-        response: '新規お申し込みありがとうございます！<br><br>【必要な手続き】<br>1. お客様情報の入力<br>2. 電気使用開始日の設定<br>3. 料金プランの選択<br>4. 本人確認書類の提出<br><br>まずはどちらの用途でお申し込みでしょうか？',
-        quickActions: ['一般家庭向け', '事業所・店舗向け', 'アパート・マンション', '手続きの詳細を知りたい']
+        response: '新規お申し込みありがとうございます！<br><br>まずはご利用用途をお選びください。',
+        quickActions: ['一般家庭での利用', '法人・事業所での利用']
     },
-    '一般家庭向け': {
-        response: '一般家庭向けのお申し込みですね！<br><br>【おすすめプラン】<br>• 従量電灯B（基本的なプラン）<br>• 時間帯別電灯（夜間お得）<br>• エコでんき（環境にやさしい）<br><br>【必要な情報】<br>• ご契約者の本人確認書類<br>• 使用開始希望日<br>• 電気使用量の目安（前住所の検針票など）',
-        quickActions: ['料金シミュレーション', 'プラン詳細比較', 'オンライン申し込み開始', '必要書類について']
+    '一般家庭での利用': {
+        response: 'ご家庭でのご利用ですね！<br><br>最適なプランをご提案するために、ご家族の人数を教えてください。',
+        quickActions: ['1人暮らし', '2人家族', '3〜4人家族', '5人以上の家族']
     },
     '事業所・店舗向け': {
         response: '事業所・店舗向けのお申し込みですね！<br><br>【事業用プラン】<br>• 従量電灯C（大容量向け）<br>• 低圧電力（動力用）<br>• 業務用時間帯別電灯<br><br>【必要な追加手続き】<br>• 事業内容の申告<br>• 契約容量の設定<br>• 法人確認書類（登記簿謄本等）',
         quickActions: ['事業用料金プラン', '契約容量について', '法人申し込み手続き', '設備工事について']
+    },
+    '法人・事業所での利用': {
+        response: '法人・事業所でのご利用ですね！<br><br>【事業用プラン】<br>• 従量電灯C（大容量向け）<br>• 低圧電力（動力用）<br>• 業務用時間帯別電灯<br><br>【必要な追加手続き】<br>• 事業内容の申告<br>• 契約容量の設定<br>• 法人確認書類（登記簿謄本等）',
+        quickActions: ['事業用料金プラン', '契約容量について', '法人申し込み手続き', '設備工事について']
+    },
+    '1人暮らし': {
+        response: '1人暮らしでのご利用ですね！<br><br>電気のご利用が多い時間帯はいつですか？',
+        quickActions: ['朝・夜中心（平日昼間は不在）', '日中も在宅ワーク', '夜間中心（23時以降）', 'バランス良く使用']
+    },
+    '2人家族': {
+        response: '2人家族でのご利用ですね！<br><br>電気のご利用が多い時間帯はいつですか？',
+        quickActions: ['朝・夜中心（平日昼間は不在）', '日中も在宅ワーク', '夜間中心（23時以降）', 'バランス良く使用']
+    },
+    '3〜4人家族': {
+        response: '3〜4人家族でのご利用ですね！<br><br>電気のご利用が多い時間帯はいつですか？',
+        quickActions: ['朝・夜中心（平日昼間は不在）', '日中も在宅ワーク', '夜間中心（23時以降）', 'バランス良く使用']
+    },
+    '5人以上の家族': {
+        response: '5人以上の大家族でのご利用ですね！<br><br>電気のご利用が多い時間帯はいつですか？',
+        quickActions: ['朝・夜中心（平日昼間は不在）', '日中も在宅ワーク', '夜間中心（23時以降）', 'バランス良く使用']
     },
     'アパート・マンション': {
         response: 'アパート・マンションでのお申し込みですね！<br><br>【確認事項】<br>• 管理会社・大家さんとの契約形態<br>• 電気設備の確認（アンペア数等）<br>• 共用部分の電気契約<br><br>【学生・単身者向けプラン】<br>• 従量電灯B（20A・30A）<br>• 夜間お得プラン<br>• 省エネサポートプラン',
@@ -91,6 +111,26 @@ const chatbotResponses = {
     '引っ越し手続き': {
         response: 'お引っ越しの手続きをサポートいたします。<br><br>【必要な手続き】<br>1. 現住所での電気使用停止<br>2. 新住所での電気使用開始<br><br>引っ越し日の1週間前までにお手続きをお願いいたします。',
         quickActions: ['使用停止手続き', '使用開始手続き', '引っ越し日程変更', '一括手続き']
+    },
+    '朝・夜中心（平日昼間は不在）': {
+        response: 'ライフスタイルに基づいてプランを分析いたします！<br><br>【おすすめプラン：従量電灯B】<br>✅ 基本的なプランで安心<br>✅ 平日昼間の電気使用が少ない方に最適<br>✅ シンプルな料金体系<br><br>💰 推定月額料金：約6,000〜8,000円<br>（使用量により変動）<br><br>このプランで申し込みに進みますか？',
+        quickActions: ['このプランで申し込む', '他のプランも見てみる', '料金詳細を確認', '条件を変更する']
+    },
+    '日中も在宅ワーク': {
+        response: 'ライフスタイルに基づいてプランを分析いたします！<br><br>【おすすめプラン：従量電灯B（大容量）】<br>✅ 一日中の電気使用に対応<br>✅ 在宅ワークに必要な安定供給<br>✅ エアコン・PC等の長時間使用にも安心<br><br>💰 推定月額料金：約8,000〜12,000円<br>（使用量により変動）<br><br>このプランで申し込みに進みますか？',
+        quickActions: ['このプランで申し込む', '他のプランも見てみる', '料金詳細を確認', '条件を変更する']
+    },
+    '夜間中心（23時以降）': {
+        response: 'ライフスタイルに基づいてプランを分析いたします！<br><br>【おすすめプラン：時間帯別電灯】<br>✅ 夜間料金が約40%お得！<br>✅ 23時〜7時の使用が多い方に最適<br>✅ 夜型ライフスタイルに特化<br><br>💰 推定月額料金：約5,500〜7,500円<br>（夜間使用により大幅節約可能）<br><br>このプランで申し込みに進みますか？',
+        quickActions: ['このプランで申し込む', '他のプランも見てみる', '料金詳細を確認', '条件を変更する']
+    },
+    'バランス良く使用': {
+        response: 'ライフスタイルに基づいてプランを分析いたします！<br><br>【おすすめプラン：従量電灯B】<br>✅ バランスの良い標準プラン<br>✅ 時間に関係なく安定料金<br>✅ 最も一般的で安心のプラン<br><br>💰 推定月額料金：約7,000〜9,500円<br>（使用量により変動）<br><br>このプランで申し込みに進みますか？',
+        quickActions: ['このプランで申し込む', '他のプランも見てみる', '料金詳細を確認', '条件を変更する']
+    },
+    'このプランで申し込む': {
+        response: '素晴らしい選択です！✨<br><br>選択されたプラン内容で申し込み手続きに進みます。<br><br>【次のステップ】<br>• お客様情報の入力<br>• 使用開始日の設定<br>• 支払い方法の選択<br>• 本人確認書類のアップロード<br><br>申し込みフォームに進む前に、手元に以下をご準備ください：<br>📋 本人確認書類（運転免許証・保険証等）<br>💳 支払い情報（口座情報・クレジットカード）',
+        quickActions: ['準備完了・申し込み開始', '必要書類について詳しく', '支払い方法について', '後でやり直す']
     }
 };
 
@@ -448,15 +488,60 @@ function generateBotResponse(userMessage) {
             text: chatbotResponses['新規申し込み'].response,
             quickActions: chatbotResponses['新規申し込み'].quickActions
         };
-    } else if (message.includes('一般家庭') || message.includes('家庭向け')) {
+    } else if (message.includes('一般家庭での利用') || message.includes('家庭での利用')) {
         return {
-            text: chatbotResponses['一般家庭向け'].response,
-            quickActions: chatbotResponses['一般家庭向け'].quickActions
+            text: chatbotResponses['一般家庭での利用'].response,
+            quickActions: chatbotResponses['一般家庭での利用'].quickActions
         };
-    } else if (message.includes('事業所') || message.includes('店舗') || message.includes('法人') || message.includes('業務')) {
+    } else if (message.includes('法人・事業所での利用') || message.includes('事業所') || message.includes('店舗') || message.includes('法人') || message.includes('業務')) {
         return {
-            text: chatbotResponses['事業所・店舗向け'].response,
-            quickActions: chatbotResponses['事業所・店舗向け'].quickActions
+            text: chatbotResponses['法人・事業所での利用'].response,
+            quickActions: chatbotResponses['法人・事業所での利用'].quickActions
+        };
+    } else if (message.includes('1人暮らし')) {
+        return {
+            text: chatbotResponses['1人暮らし'].response,
+            quickActions: chatbotResponses['1人暮らし'].quickActions
+        };
+    } else if (message.includes('2人家族')) {
+        return {
+            text: chatbotResponses['2人家族'].response,
+            quickActions: chatbotResponses['2人家族'].quickActions
+        };
+    } else if (message.includes('3〜4人家族')) {
+        return {
+            text: chatbotResponses['3〜4人家族'].response,
+            quickActions: chatbotResponses['3〜4人家族'].quickActions
+        };
+    } else if (message.includes('5人以上の家族')) {
+        return {
+            text: chatbotResponses['5人以上の家族'].response,
+            quickActions: chatbotResponses['5人以上の家族'].quickActions
+        };
+    } else if (message.includes('朝・夜中心（平日昼間は不在）') || message.includes('朝・夜中心')) {
+        return {
+            text: chatbotResponses['朝・夜中心（平日昼間は不在）'].response,
+            quickActions: chatbotResponses['朝・夜中心（平日昼間は不在）'].quickActions
+        };
+    } else if (message.includes('日中も在宅ワーク') || message.includes('在宅ワーク')) {
+        return {
+            text: chatbotResponses['日中も在宅ワーク'].response,
+            quickActions: chatbotResponses['日中も在宅ワーク'].quickActions
+        };
+    } else if (message.includes('夜間中心（23時以降）') || message.includes('夜間中心')) {
+        return {
+            text: chatbotResponses['夜間中心（23時以降）'].response,
+            quickActions: chatbotResponses['夜間中心（23時以降）'].quickActions
+        };
+    } else if (message.includes('バランス良く使用') || message.includes('バランス良く')) {
+        return {
+            text: chatbotResponses['バランス良く使用'].response,
+            quickActions: chatbotResponses['バランス良く使用'].quickActions
+        };
+    } else if (message.includes('このプランで申し込む')) {
+        return {
+            text: chatbotResponses['このプランで申し込む'].response,
+            quickActions: chatbotResponses['このプランで申し込む'].quickActions
         };
     } else if (message.includes('アパート') || message.includes('マンション') || message.includes('賃貸') || message.includes('単身')) {
         return {
