@@ -452,8 +452,8 @@ body.loaded .hero-content {
     position: absolute;
     bottom: 80px;
     right: 0;
-    width: 350px;
-    height: 520px;
+    width: 400px;
+    height: 580px;
     background: white;
     border-radius: 15px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
@@ -475,7 +475,7 @@ body.loaded .hero-content {
 .chatbot-header {
     background: linear-gradient(135deg, #007BC2 0%, #0099dd 100%);
     color: white;
-    padding: 15px 20px;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -491,8 +491,8 @@ body.loaded .hero-content {
     height: 40px;
     border-radius: 50%;
     border: 2px solid white;
-    mix-blend-mode: multiply;
-    background: transparent;
+    background: white;
+    object-fit: cover;
 }
 
 .header-text h4 {
@@ -664,14 +664,14 @@ body.loaded .hero-content {
 /* モバイル対応 */
 @media (max-width: 480px) {
     .chatbot-window {
-        width: 300px;
-        height: 450px;
+        width: 340px;
+        height: 500px;
         bottom: 70px;
         right: 10px;
     }
 
     .chatbot-messages {
-        height: 250px;
+        height: 280px;
     }
 
     .quick-action {
