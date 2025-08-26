@@ -382,6 +382,8 @@ body.loaded .hero-content {
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    mix-blend-mode: multiply;
+    background: transparent;
 }
 
 .chatbot-toggle:hover {
@@ -489,6 +491,8 @@ body.loaded .hero-content {
     height: 40px;
     border-radius: 50%;
     border: 2px solid white;
+    mix-blend-mode: multiply;
+    background: transparent;
 }
 
 .header-text h4 {

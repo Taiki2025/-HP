@@ -718,9 +718,9 @@ document.addEventListener('keydown', function(e) {
 
 // 吹き出しメッセージのパターン
 const speechMessages = [
-    'ちゃちゃっと解決！',
-    '相談してね！',
-    'こっちでも手続きできるよ！'
+    'アカネさん、ちゃちゃっと解決！',
+    'アカネさん、相談してね！',
+    'アカネさん、こっちでも手続きできるよ！'
 ];
 
 let currentMessageIndex = 0;
