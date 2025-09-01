@@ -530,11 +530,11 @@ body.loaded .hero-content {
 }
 
 .message-content {
-    max-width: 80%;
-    padding: 12px 16px;
+    max-width: 85%;
+    padding: 14px 18px;
     border-radius: 18px;
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 1rem;
+    line-height: 1.5;
 }
 
 .bot-message .message-content {
@@ -586,7 +586,7 @@ body.loaded .hero-content {
 
 .chatbot-input {
     display: flex;
-    padding: 15px;
+    padding: 18px;
     background: white;
     border-top: 1px solid #e2e8f0;
     flex-shrink: 0;
@@ -596,10 +596,11 @@ body.loaded .hero-content {
     flex: 1;
     border: 1px solid #cbd5e1;
     border-radius: 20px;
-    padding: 10px 15px;
-    font-size: 0.9rem;
+    padding: 12px 18px;
+    font-size: 1rem;
     outline: none;
     margin-right: 10px;
+    min-height: 44px;
 }
 
 .chatbot-input input:focus {
@@ -612,11 +613,12 @@ body.loaded .hero-content {
     color: white;
     border: none;
     border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 0.9rem;
+    padding: 12px 22px;
+    font-size: 1rem;
     cursor: pointer;
     transition: background 0.2s ease;
     white-space: nowrap;
+    min-height: 44px;
 }
 
 .chatbot-input button:hover {

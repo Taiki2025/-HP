@@ -130,7 +130,11 @@ const chatbotResponses = {
     },
     'このプランで申し込む': {
         response: '素晴らしい選択です！✨<br><br>選択されたプラン内容で申し込み手続きに進みます。<br><br>【次のステップ】<br>• お客様情報の入力<br>• 使用開始日の設定<br>• 支払い方法の選択<br>• 本人確認書類のアップロード<br><br>申し込みフォームに進む前に、手元に以下をご準備ください：<br>📋 本人確認書類（運転免許証・保険証等）<br>💳 支払い情報（口座情報・クレジットカード）',
-        quickActions: ['準備完了・申し込み開始', '必要書類について詳しく', '支払い方法について', '後でやり直す']
+        quickActions: ['申し込みフォームへ進む', '必要書類について詳しく', '支払い方法について', '後でやり直す']
+    },
+    '申し込みフォームへ進む': {
+        response: '申し込みフォームに進みます！<br><br>📝 申し込みページに移動します。<br>ご入力いただいた内容に基づいて、フォームが事前入力されます。<br><br>【ご注意】<br>• 入力内容は自動保存されません<br>• ページを離れる前に必ず内容をご確認ください<br>• ご不明な点はいつでもチャットボットにご相談ください',
+        quickActions: ['申し込みページを開く', 'チャットに戻る', '手続きをキャンセル']
     }
 };
 
@@ -542,6 +546,20 @@ function generateBotResponse(userMessage) {
         return {
             text: chatbotResponses['このプランで申し込む'].response,
             quickActions: chatbotResponses['このプランで申し込む'].quickActions
+        };
+    } else if (message.includes('申し込みフォームへ進む')) {
+        return {
+            text: chatbotResponses['申し込みフォームへ進む'].response,
+            quickActions: chatbotResponses['申し込みフォームへ進む'].quickActions
+        };
+    } else if (message.includes('申し込みページを開く')) {
+        // 申込ページに遷移
+        setTimeout(() => {
+            window.open('application.html', '_blank');
+        }, 1000);
+        return {
+            text: '申し込みページを新しいタブで開いています...<br><br>📝 申し込みフォームが表示されます。<br>ご不明な点がございましたら、このチャットボットにいつでもご相談ください！',
+            quickActions: ['チャットに戻る', '手続きをキャンセル']
         };
     } else if (message.includes('アパート') || message.includes('マンション') || message.includes('賃貸') || message.includes('単身')) {
         return {
