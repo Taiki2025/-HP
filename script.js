@@ -553,12 +553,43 @@ function generateBotResponse(userMessage) {
             quickActions: chatbotResponses['申し込みフォームへ進む'].quickActions
         };
     } else if (message.includes('申し込みページを開く')) {
-        // 申込ページに遷移
+        // チャットボットで確認した情報を取得
+        let urlParams = new URLSearchParams();
+        
+        // 家族構成情報があれば追加
+        if (message.includes('1人暮らし')) {
+            urlParams.append('family', '1人暮らし');
+        } else if (message.includes('2人家族')) {
+            urlParams.append('family', '2人家族');
+        } else if (message.includes('3〜4人家族')) {
+            urlParams.append('family', '3〜4人家族');
+        } else if (message.includes('5人以上の家族')) {
+            urlParams.append('family', '5人以上の家族');
+        }
+        
+        // 使用パターン情報があれば追加
+        if (message.includes('朝・夜中心')) {
+            urlParams.append('usage', '朝・夜中心（平日昼間は不在）');
+            urlParams.append('plan', 'basic');
+        } else if (message.includes('在宅ワーク')) {
+            urlParams.append('usage', '日中も在宅ワーク');
+            urlParams.append('plan', 'basic');
+        } else if (message.includes('夜間中心')) {
+            urlParams.append('usage', '夜間中心（23時以降）');
+            urlParams.append('plan', 'time');
+        } else if (message.includes('バランス良く')) {
+            urlParams.append('usage', 'バランス良く使用');
+            urlParams.append('plan', 'basic');
+        }
+        
+        // 申込ページに遷移（パラメータ付き）
+        const url = `gas-offer.html?${urlParams.toString()}`;
         setTimeout(() => {
-            window.open('application.html', '_blank');
+            window.open(url, '_blank');
         }, 1000);
+        
         return {
-            text: '申し込みページを新しいタブで開いています...<br><br>📝 申し込みフォームが表示されます。<br>ご不明な点がございましたら、このチャットボットにいつでもご相談ください！',
+            text: '申し込みページを新しいタブで開いています...<br><br>📝 チャットボットで確認した情報が事前入力されます。<br>ご不明な点がございましたら、このチャットボットにいつでもご相談ください！',
             quickActions: ['チャットに戻る', '手続きをキャンセル']
         };
     } else if (message.includes('アパート') || message.includes('マンション') || message.includes('賃貸') || message.includes('単身')) {

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お得なガスセットのご案内 - 九州電力株式会社</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .offer-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .offer-title {
+            font-size: 2.5rem;
+            color: #007BC2;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .offer-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        
+        .offer-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .offer-card h3 {
+            font-size: 1.8rem;
+            color: #ff9933;
+            margin-bottom: 20px;
+        }
+        
+        .offer-card p {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .offer-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .btn-yes {
+            background: #ff9933;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn-yes:hover {
+            background: #e68a00;
+            transform: translateY(-2px);
+        }
+        
+        .btn-no {
+            background: transparent;
+            color: #666;
+            border: 2px solid #ccc;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn-no:hover {
+            background: #f0f0f0;
+            border-color: #999;
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-top">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="九州電力ロゴ.png" alt="九州電力株式会社" class="logo-img">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="offer-container">
+            <h1 class="offer-title">電気のお申し込みの前に、<br>お得なご案内です！</h1>
+            <p class="offer-subtitle">ガスもまとめて、光熱費をもっとおトクにしませんか？</p>
+            
+            <div class="offer-card">
+                <h3>電気とガスをまとめてお申し込みいただくと<br>「ガスセット割引」が適用されます！</h3>
+                <p>毎月のガス料金がずっと割引になり、お手続きも一度で完了！<br>家計にやさしく、とっても便利です。</p>
+                <div class="offer-actions">
+                    <a href="application.html?gasSet=true" class="btn-yes">はい、ガスもまとめて申し込みます</a>
+                    <a href="application.html" class="btn-no">いいえ、電気のみ申し込みます</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
