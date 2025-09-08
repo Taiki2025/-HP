@@ -82,6 +82,9 @@ body {
     border: 2px solid;
     transition: all 0.3s ease;
     white-space: nowrap;
+    width: 140px;
+    text-align: center;
+    display: inline-block;
 }
 
 .category-btn:hover {
@@ -188,6 +191,25 @@ body {
     border-color: #007BC2;
 }
 
+.corporate-btn {
+    background-color: #ff9933;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.corporate-btn:hover {
+    background-color: #e68a00;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(255,153,51,0.3);
+}
+
 .login-btn {
     background-color: #007BC2;
     color: white;
@@ -230,6 +252,38 @@ body {
 .nav-link:hover {
     background-color: #f0f7ff;
     color: #007BC2;
+}
+
+.faq-link {
+    color: #007BC2;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #f0f7ff 0%, #e6f2ff 100%);
+    border: 2px solid #007BC2;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.faq-link::before {
+    content: '❓';
+    margin-right: 6px;
+    font-size: 0.9rem;
+}
+
+.faq-link:hover {
+    background: linear-gradient(135deg, #007BC2 0%, #005A91 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,123,194,0.3);
+    border-color: #005A91;
+}
+
+.faq-link:hover::before {
+    content: '💡';
 }
 
 .copy-icon {
@@ -1124,6 +1178,13 @@ body.loaded .hero-content {
     .utility-nav {
         justify-content: space-between;
         width: 100%;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .corporate-btn {
+        font-size: 0.8rem;
+        padding: 6px 12px;
     }
 
     .nav-bottom {
