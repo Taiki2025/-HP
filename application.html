@@ -7,10 +7,106 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         /* 申込ページ専用スタイル */
+        body {
+            background: linear-gradient(135deg, #007BC2 0%, #005A91 40%, #003d6b 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+        }
+
+        /* ヘッダー部分のスタイリング */
+        .header-section {
+            background: white;
+            color: #333;
+            padding: 12px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #e6eaf2;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .company-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .company-logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .language-selector {
+            position: relative;
+        }
+
+        .language-selector select {
+            padding: 6px 10px;
+            border: 1px solid #e6eaf2;
+            border-radius: 6px;
+            background: white;
+            font-size: 0.85rem;
+            cursor: pointer;
+            appearance: none;
+            padding-right: 25px;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23007BC2" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 6px center;
+            background-size: 8px;
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, #007BC2 0%, #005A91 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 18px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .contact-btn:hover {
+            background: linear-gradient(135deg, #005A91 0%, #003d6b 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 123, 194, 0.3);
+        }
+
+        .page-title {
+            display: none;
+        }
+
         .application-container {
             max-width: 900px;
-            margin: 0 auto;
+            margin: 80px auto 0 auto;
             padding: 40px 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 3;
         }
         
         .application-header {
@@ -19,27 +115,39 @@
         }
         
         .application-title {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             color: #007BC2;
             margin-bottom: 10px;
-            font-weight: bold;
+            font-weight: 600;
         }
         
         .application-subtitle {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #666;
             margin-bottom: 30px;
         }
         
-        /* ステップ進捗バー */
+        /* ステップ進捗バー - 九州電力スタイル */
         .progress-container {
-            margin-bottom: 40px;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 123, 194, 0.1);
+            text-align: center;
+        }
+
+        .progress-title {
+            display: none;
         }
         
         .steps-container {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            margin: 0 auto;
+            max-width: 600px;
         }
         
         .step-item {
@@ -53,59 +161,70 @@
         .step-item:not(:last-child)::after {
             content: '';
             position: absolute;
-            top: 20px;
-            left: 50%;
-            width: 100%;
-            height: 2px;
-            background: #e2e8f0;
+            top: 25px;
+            right: -50%;
+            width: calc(100% - 20px);
+            height: 3px;
+            background: #e0e6ed;
             z-index: 1;
         }
         
-        .step-item.active:not(:last-child)::after {
-            background: #007BC2;
+        .step-item.active:not(:last-child)::after,
+        .step-item.completed:not(:last-child)::after {
+            background: linear-gradient(90deg, #007BC2 0%, #005A91 100%);
         }
         
         .step-number {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: #e2e8f0;
-            color: #666;
+            background: #e0e6ed;
+            color: #999;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 1.1rem;
-            margin-bottom: 10px;
             position: relative;
             z-index: 2;
+            margin-bottom: 12px;
+            border: 3px solid #f8f9fa;
             transition: all 0.3s ease;
         }
         
         .step-item.active .step-number {
-            background: #007BC2;
+            background: linear-gradient(135deg, #007BC2 0%, #005A91 100%);
             color: white;
+            box-shadow: 0 4px 15px rgba(0, 123, 194, 0.3);
+            transform: scale(1.05);
         }
         
         .step-item.completed .step-number {
-            background: #10b981;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
             color: white;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
         }
         
         .step-title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #666;
             text-align: center;
+            line-height: 1.4;
             font-weight: 500;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .step-item.active .step-title {
             color: #007BC2;
             font-weight: 600;
         }
-        
+
         .step-item.completed .step-title {
-            color: #10b981;
+            color: #28a745;
+            font-weight: 600;
         }
         
         /* フォームステップ */
@@ -175,34 +294,73 @@
         
         .form-input {
             width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            padding: 15px 18px;
+            border: 2px solid #e6eaf2;
+            border-radius: 12px;
             font-size: 1rem;
-            transition: all 0.3s ease;
-            background: white;
+            background: #fafbfc;
+            font-family: inherit;
         }
         
         .form-input:focus {
             outline: none;
             border-color: #007BC2;
-            box-shadow: 0 0 0 3px rgba(0, 123, 194, 0.1);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0, 123, 194, 0.08);
+        }
+
+        .form-input:hover {
+            border-color: #b8d4ea;
+            background: white;
         }
         
         .form-select {
             width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            padding: 15px 18px;
+            border: 2px solid #e6eaf2;
+            border-radius: 12px;
             font-size: 1rem;
-            background: white;
+            background: #fafbfc;
             cursor: pointer;
             appearance: none;
-            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23333" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23007BC2" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
             background-repeat: no-repeat;
-            background-position: right 12px center;
+            background-position: right 18px center;
             background-size: 12px;
-            padding-right: 40px;
+            padding-right: 50px;
+            font-family: inherit;
+            position: relative;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #007BC2;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0, 123, 194, 0.08);
+        }
+
+        .form-select:hover {
+            border-color: #b8d4ea;
+            background: white;
+        }
+
+        /* プルダウンアイコンをより目立たせる */
+        .form-select::after {
+            content: '';
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #007BC2;
+            pointer-events: none;
+        }
+
+        .form-select:hover::after {
+            border-top-color: #005A91;
         }
         
         .form-textarea {
@@ -219,7 +377,6 @@
         .form-textarea:focus {
             outline: none;
             border-color: #007BC2;
-            box-shadow: 0 0 0 3px rgba(0, 123, 194, 0.1);
         }
         
         .required {
@@ -237,38 +394,43 @@
         }
         
         .btn-next {
-            background: #007BC2;
+            background: linear-gradient(135deg, #007BC2 0%, #005A91 100%);
             color: white;
             border: none;
-            padding: 15px 40px;
-            border-radius: 8px;
-            font-size: 1.1rem;
+            padding: 14px 35px;
+            border-radius: 25px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+            box-shadow: 0 3px 10px rgba(0, 123, 194, 0.1);
         }
         
         .btn-next:hover {
-            background: #005A91;
+            background: linear-gradient(135deg, #005A91 0%, #003d6b 100%);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 123, 194, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 123, 194, 0.3);
         }
         
         .btn-prev {
-            background: transparent;
-            color: #007BC2;
-            border: 2px solid #007BC2;
-            padding: 15px 40px;
-            border-radius: 8px;
-            font-size: 1.1rem;
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 25px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
         
         .btn-prev:hover {
-            background: #007BC2;
-            color: white;
+            background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .btn-submit {
@@ -488,6 +650,274 @@
             position: sticky;
             top: 100px;
         }
+
+        /* モーダルポップアップのスタイル */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+            border-radius: 20px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 25px 80px rgba(0, 123, 194, 0.15), 0 10px 40px rgba(0, 0, 0, 0.1);
+            animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(0, 123, 194, 0.1);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-40px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            padding: 15px 20px 12px 20px;
+            border-bottom: 1px solid rgba(0, 123, 194, 0.1);
+            background: white;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+        }
+
+        .modal-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #007BC2 0%, #005A91 100%);
+            border-radius: 2px;
+        }
+
+        .modal-header-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1;
+        }
+
+        .mirai-avatar {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mirai-icon {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+        }
+
+        .mirai-message h3 {
+            margin: 0 0 2px 0;
+            color: #007BC2;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .mirai-message p {
+            margin: 0;
+            color: #005A91;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+
+
+        .modal-body {
+            padding: 15px 20px;
+        }
+
+        .gas-offer-content {
+            text-align: center;
+        }
+
+        .energy-icons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 12px;
+        }
+
+        .energy-icon {
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .energy-icon.electricity {
+            color: #ffd700;
+            animation: pulse 2s infinite;
+        }
+
+        .energy-icon.plus {
+            color: #007BC2;
+            font-weight: bold;
+            font-size: 1.6rem;
+        }
+
+        .energy-icon.gas {
+            color: #ff6b35;
+            animation: pulse 2s infinite 0.5s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .gas-offer-content h4 {
+            color: #007BC2;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .offer-description {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        .gas-benefits {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+            border-radius: 14px;
+            border: 1px solid rgba(0, 123, 194, 0.08);
+            box-shadow: 0 2px 10px rgba(0, 123, 194, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 123, 194, 0.1);
+            border-color: rgba(0, 123, 194, 0.15);
+        }
+
+        .benefit-icon {
+            font-size: 1.2rem;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #007BC2 0%, #005A91 100%);
+            color: white;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .benefit-text {
+            text-align: left;
+            flex: 1;
+        }
+
+        .benefit-title {
+            display: block;
+            color: #007BC2;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 1px;
+            line-height: 1.2;
+        }
+
+        .benefit-desc {
+            display: block;
+            color: #666;
+            font-size: 0.75rem;
+            line-height: 1.2;
+        }
+
+        .modal-actions {
+            padding: 15px 20px 20px 20px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-gas-yes, .btn-gas-no {
+            flex: 1;
+            max-width: 190px;
+            padding: 12px 18px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gas-yes {
+            background: linear-gradient(135deg, #007BC2 0%, #005A91 100%);
+            color: white;
+            box-shadow: 0 6px 20px rgba(0, 123, 194, 0.3);
+        }
+
+        .btn-gas-yes:hover {
+            background: linear-gradient(135deg, #005A91 0%, #003d6b 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 123, 194, 0.4);
+        }
+
+        .btn-gas-no {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+            color: #007BC2;
+            border: 2px solid #007BC2;
+            box-shadow: 0 4px 15px rgba(0, 123, 194, 0.1);
+        }
+
+        .btn-gas-no:hover {
+            background: linear-gradient(135deg, #007BC2 0%, #005A91 100%);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 123, 194, 0.3);
+        }
+
+        .btn-icon {
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
         
         @media (max-width: 768px) {
             .form-row {
@@ -527,55 +957,47 @@
     </style>
 </head>
 <body>
-    <!-- ヘッダー -->
-    <header class="header">
-        <div class="header-container">
-            <div class="header-top">
-                <div class="logo">
-                    <a href="index.html">
-                        <img src="九州電力ロゴ.png" alt="九州電力株式会社" class="logo-img">
-                    </a>
+    <!-- ヘッダーセクション -->
+    <div class="header-section">
+        <div class="header-content">
+            <div class="company-logo">
+                <img src="九州電力ロゴ.png" alt="九州電力株式会社">
+            </div>
+            <div class="header-actions">
+                <div class="language-selector">
+                    <select>
+                        <option value="ja">日本語</option>
+                        <option value="en">English</option>
+                        <option value="ko">한국어</option>
+                        <option value="zh">中文</option>
+                    </select>
                 </div>
-                <div class="header-actions">
-                    <div class="utility-nav">
-                        <div class="language-selector">
-                            <select id="languageSelect">
-                                <option value="ja">languages</option>
-                                <option value="en">English</option>
-                                <option value="ko">한국어</option>
-                                <option value="zh">中文</option>
-                            </select>
-                        </div>
-                        <button class="login-btn">My九電ログイン</button>
-                    </div>
-                </div>
+                <a href="#" class="contact-btn">お問い合わせはこちら</a>
             </div>
         </div>
-    </header>
+    </div>
 
     <!-- メインコンテンツ -->
     <main>
         <div class="application-container">
-            <!-- 申込ヘッダー -->
-            <div class="application-header">
-                <h1 class="application-title">新規お申し込み</h1>
-                <p class="application-subtitle">電気のご利用開始手続きを行います</p>
-            </div>
-
             <!-- ステップ進捗 -->
             <div class="progress-container">
                 <div class="steps-container">
                     <div class="step-item active" id="step1">
                         <div class="step-number">1</div>
-                        <div class="step-title">契約プラン設定</div>
+                        <div class="step-title">プラン選択</div>
                     </div>
                     <div class="step-item" id="step2">
                         <div class="step-number">2</div>
-                        <div class="step-title">お客様情報入力</div>
+                        <div class="step-title">契約情報</div>
                     </div>
                     <div class="step-item" id="step3">
                         <div class="step-number">3</div>
-                        <div class="step-title">利用開始日・支払方法</div>
+                        <div class="step-title">確認</div>
+                    </div>
+                    <div class="step-item" id="step4">
+                        <div class="step-number">4</div>
+                        <div class="step-title">完了</div>
                     </div>
                 </div>
             </div>
@@ -729,10 +1151,11 @@
 
             <!-- Step 2: お客様情報入力 -->
             <div class="form-step" id="step2Form">
-                <div class="step-header">
-                    <h3>Step 2: お客様情報の入力</h3>
-                    <p>申し込みに必要な基本情報をご入力ください</p>
-                </div>
+                <form>
+                    <div class="step-header">
+                        <h3>Step 2: お客様情報の入力</h3>
+                        <p>申し込みに必要な基本情報をご入力ください</p>
+                    </div>
 
                 <div class="form-section">
                     <h4>お申込者情報</h4>
@@ -877,113 +1300,191 @@
                     </div>
                 </div>
 
-                <!-- ガス利用の場合のみ表示される項目 -->
-                <div class="form-section" id="gasSection" style="display: none;">
-                    <h4>ガス開栓に関する情報</h4>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">ガス使用開始日<span class="required">*</span></label>
-                            <input type="date" class="form-input" name="gasStartDate">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">立ち合い希望時刻<span class="required">*</span></label>
-                            <select class="form-select" name="gasTime">
-                                <option value="">選択してください</option>
-                                <option value="9:00-12:00">9:00-12:00</option>
-                                <option value="13:00-17:00">13:00-17:00</option>
-                                <option value="9:00-17:00">9:00-17:00（終日）</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">開栓立会者<span class="required">*</span></label>
-                            <select class="form-select" name="gasWitness">
-                                <option value="">選択してください</option>
-                                <option value="ご契約者">ご契約者</option>
-                                <option value="お申込者">お申込者</option>
-                                <option value="その他">その他</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">共用玄関や門扉の施錠有無<span class="required">*</span></label>
-                            <div class="radio-group">
-                                <label class="radio-label">
-                                    <input type="radio" name="lockStatus" value="あり">
-                                    <span>あり</span>
-                                </label>
-                                <label class="radio-label">
-                                    <input type="radio" name="lockStatus" value="なし">
-                                    <span>なし</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
 
                 <div class="form-actions">
                     <button type="button" class="btn-prev" onclick="prevStep()">前へ戻る</button>
                     <button type="button" class="btn-next" onclick="nextStep()">次へ進む</button>
                 </div>
+                </form>
             </div>
 
             <!-- Step 3: 利用開始日・支払方法設定 -->
             <div class="form-step" id="step3Form">
-                <div class="step-header">
-                    <h3>Step 3: ご利用開始日、支払方法の設定</h3>
-                    <p>利用開始日とお支払い方法をご設定ください</p>
-                </div>
+                <form>
+                    <div class="step-header">
+                        <h3>Step 3: ご利用開始日、支払方法の設定</h3>
+                        <p>利用開始日とお支払い方法をご設定ください</p>
+                    </div>
 
-                <div class="form-section">
-                    <h4>利用開始日の設定</h4>
-                    <div class="form-group full-width">
-                        <label class="form-label">使用開始希望日<span class="required">*</span></label>
-                        <input type="date" class="form-input" name="startDate" required>
-                    </div>
-                    <div class="info-display">
-                        <h4>📅 利用開始日について</h4>
-                        <p>• 申し込み日から最短で3営業日後から利用開始可能です<br>
-                        • 工事が必要な場合は、別途日程調整を行います<br>
-                        • 緊急の場合は、お電話でご相談ください（0120-986-807）</p>
-                    </div>
-                </div>
+                                 <div class="form-section">
+                     <h4>電気の利用開始日の設定</h4>
+                     <div class="form-group full-width">
+                         <label class="form-label">使用開始希望日<span class="required">*</span></label>
+                         <input type="date" class="form-input" name="startDate" required>
+                     </div>
+                     <div class="info-display">
+                         <h4>📅 利用開始日について</h4>
+                         <p>• 申し込み日から最短で3営業日後から利用開始可能です<br>
+                         • 工事が必要な場合は、別途日程調整を行います<br>
+                         • 緊急の場合は、お電話でご相談ください（0120-986-807）</p>
+                     </div>
+                 </div>
 
-                <div class="form-section">
-                    <h4>支払い方法の設定</h4>
-                    <div class="form-group full-width">
-                        <label class="form-label">支払い方法<span class="required">*</span></label>
-                        <select class="form-select" name="paymentMethod" required>
-                            <option value="">選択してください</option>
-                            <option value="bank">口座振替（手数料無料）</option>
-                            <option value="credit">クレジットカード</option>
-                            <option value="convenience">コンビニ払い</option>
-                        </select>
-                    </div>
-                </div>
+                                 <!-- ガス利用の場合のみ表示される項目 -->
+                 <div class="form-section" id="gasSection" style="display: none;">
+                     <h4>ガス開栓に関する情報</h4>
+                     <div class="form-row">
+                         <div class="form-group">
+                             <label class="form-label">ガス使用開始日<span class="required">*</span></label>
+                             <input type="date" class="form-input" name="gasStartDate">
+                         </div>
+                         <div class="form-group">
+                             <label class="form-label">立ち合い希望時刻<span class="required">*</span></label>
+                             <select class="form-select" name="gasTime">
+                                 <option value="">選択してください</option>
+                                 <option value="9:00-12:00">9:00-12:00</option>
+                                 <option value="13:00-17:00">13:00-17:00</option>
+                                 <option value="9:00-17:00">9:00-17:00（終日）</option>
+                             </select>
+                         </div>
+                     </div>
+                     <div class="form-row">
+                         <div class="form-group">
+                             <label class="form-label">開栓立会者<span class="required">*</span></label>
+                             <select class="form-select" name="gasWitness">
+                                 <option value="">選択してください</option>
+                                 <option value="ご契約者">ご契約者</option>
+                                 <option value="お申込者">お申込者</option>
+                                 <option value="その他">その他</option>
+                             </select>
+                         </div>
+                         <div class="form-group">
+                             <label class="form-label">共用玄関や門扉の施錠有無<span class="required">*</span></label>
+                             <div class="radio-group">
+                                 <label class="radio-label">
+                                     <input type="radio" name="lockStatus" value="あり">
+                                     <span>あり</span>
+                                 </label>
+                                 <label class="radio-label">
+                                     <input type="radio" name="lockStatus" value="なし">
+                                     <span>なし</span>
+                                 </label>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
 
-                <div class="form-section">
-                    <h4>備考</h4>
-                    <div class="form-group full-width">
-                        <label class="form-label">その他ご要望・ご質問</label>
-                        <textarea class="form-textarea" name="notes" placeholder="ご要望やご質問がございましたら、お気軽にお書きください。"></textarea>
-                    </div>
-                </div>
+                                   <div class="form-section">
+                      <h4>支払い方法の設定</h4>
+                      <div class="form-group full-width">
+                          <label class="form-label">支払い方法<span class="required">*</span></label>
+                          <select class="form-select" name="paymentMethod" required onchange="showPaymentMessage(this.value)">
+                              <option value="">選択してください</option>
+                              <option value="bank">口座振替（手数料無料）</option>
+                              <option value="credit">クレジットカード</option>
+                              <option value="convenience">払込票による支払い</option>
+                          </select>
+                      </div>
+                      <div id="paymentMessage" style="display: none; margin-top: 15px; padding: 15px; background: #f8fbff; border: 1px solid #e6f2ff; border-radius: 8px;">
+                          <p id="paymentMessageText" style="margin: 0; color: #007BC2; font-size: 0.95rem; line-height: 1.5;"></p>
+                      </div>
+                  </div>
 
-                <!-- 申し込み内容確認 -->
-                <div class="info-display">
-                    <h4>📋 申し込み内容の確認</h4>
-                    <div class="info-grid" id="summaryGrid">
-                        <!-- 動的に申し込み内容が表示される -->
-                    </div>
-                </div>
+                
+
+                
 
                 <div class="form-actions">
                     <button type="button" class="btn-prev" onclick="prevStep()">前へ戻る</button>
                     <button type="submit" class="btn-submit" onclick="submitApplication()">申し込みを完了する</button>
                 </div>
+                </form>
+                         </div>
+
+             <!-- Step 4: 最終確認 -->
+             <div class="form-step" id="step4Form">
+                 <div class="step-header">
+                     <h3>Step 4: 申し込み内容の最終確認</h3>
+                     <p>入力いただいた内容をご確認ください</p>
+                 </div>
+
+                 <!-- 申し込み内容確認 -->
+                 <div class="info-display">
+                     <h4>📋 申し込み内容の確認</h4>
+                     <div class="info-grid" id="summaryGrid">
+                         <!-- 動的に申し込み内容が表示される -->
+                     </div>
+                 </div>
+
+                 <div class="form-actions">
+                     <button type="button" class="btn-prev" onclick="prevStep()">前へ戻る</button>
+                     <button type="button" class="btn-next" onclick="nextStep()">次へ進む</button>
+                 </div>
+             </div>
+         </div>
+     </main>
+
+    <!-- ガスセット確認ポップアップ -->
+    <div id="gasOfferModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-header-content">
+                    <div class="mirai-avatar">
+                        <img src="九州電力「みらいくん」.png" alt="みらいくん" class="mirai-icon">
+                    </div>
+                    <div class="mirai-message">
+                        <h3>みらいくんからのおすすめ</h3>
+                        <p>電気とガスをセットでお得に！</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="gas-offer-content">
+                    <div class="energy-icons">
+                        <div class="energy-icon electricity">⚡</div>
+                        <div class="energy-icon plus">+</div>
+                        <div class="energy-icon gas">🔥</div>
+                    </div>
+                    <h4>電気とガスを一緒に申し込みませんか？</h4>
+                    <p class="offer-description">ガスセットプランで毎月<strong>300円割引</strong>が適用されます！</p>
+                    <div class="gas-benefits">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">💰</div>
+                            <div class="benefit-text">
+                                <span class="benefit-title">お得なセット割引</span>
+                                <span class="benefit-desc">毎月300円の割引が適用</span>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">⚡</div>
+                            <div class="benefit-text">
+                                <span class="benefit-title">一度の手続きで対応完了</span>
+                                <span class="benefit-desc">面倒な手続きが簡単に</span>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">📊</div>
+                            <div class="benefit-text">
+                                <span class="benefit-title">利用量・料金の一元管理</span>
+                                <span class="benefit-desc">光熱費をまとめて確認</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-gas-yes" onclick="selectGasSet(true)">
+                    <span class="btn-icon">⚡🔥</span>
+                    ガスと電気を申し込み
+                </button>
+                <button type="button" class="btn-gas-no" onclick="selectGasSet(false)">
+                    <span class="btn-icon">⚡</span>
+                    電気のみ申し込み
+                </button>
             </div>
         </div>
-    </main>
+    </div>
 
     <!-- フッター -->
     <footer class="footer">
@@ -1012,8 +1513,8 @@
     </footer>
 
     <script>
-        let currentStep = 1;
-        const totalSteps = 3;
+                 let currentStep = 1;
+         const totalSteps = 4;
         let applicationData = {};
 
         const planDetails = {
@@ -1147,13 +1648,27 @@
 
         // ステップ管理
         function showStep(step) {
+            console.log('showStep() called with step:', step);
             // 全てのステップを非表示
             document.querySelectorAll('.form-step').forEach(form => {
                 form.classList.remove('active');
             });
             
             // 指定されたステップを表示
-            document.getElementById(`step${step}Form`).classList.add('active');
+            const targetForm = document.getElementById(`step${step}Form`);
+            console.log('Target form found:', targetForm);
+            
+            if (targetForm) {
+                targetForm.classList.add('active');
+                console.log('Step', step, 'is now active');
+            } else {
+                console.error('Form for step', step, 'not found!');
+            }
+            
+            // Step2とStep3の場合、ガスセクションの表示制御
+            if (step === 2 || step === 3) {
+                toggleGasSection();
+            }
             
             // ステップインジケーターを更新
             updateStepIndicators(step);
@@ -1171,15 +1686,22 @@
         }
 
         function nextStep() {
+            console.log('nextStep() called, currentStep:', currentStep);
             if (validateCurrentStep()) {
+                console.log('Validation passed, saving data...');
                 saveCurrentStepData();
                 if (currentStep < totalSteps) {
                     currentStep++;
+                    console.log('Moving to step:', currentStep);
                     showStep(currentStep);
                     if (currentStep === 3) {
                         updateSummary();
                     }
+                } else {
+                    console.log('Already at last step');
                 }
+            } else {
+                console.log('Validation failed');
             }
         }
 
@@ -1191,14 +1713,24 @@
         }
 
         function validateCurrentStep() {
+            console.log('validateCurrentStep() called for step:', currentStep);
             const currentForm = document.getElementById(`step${currentStep}Form`);
+            console.log('Current form found:', currentForm);
+            
+            if (!currentForm) {
+                console.error('Form not found for step:', currentStep);
+                return false;
+            }
+            
             const requiredFields = currentForm.querySelectorAll('[required]');
+            console.log('Required fields found:', requiredFields.length);
             let isValid = true;
 
             for (const field of requiredFields) {
                 if (!field.value.trim()) {
                     field.style.borderColor = '#ef4444';
                     isValid = false;
+                    console.log('Invalid field:', field.name, 'value:', field.value);
                 } else {
                     field.style.borderColor = '#e2e8f0';
                 }
@@ -1216,56 +1748,93 @@
                 }
             }
 
+            console.log('Validation result:', isValid);
             return true;
         }
 
         function saveCurrentStepData() {
-            const currentForm = document.getElementById(`step${currentStep}Form`);
-            const formData = new FormData(currentForm);
+            console.log('saveCurrentStepData() called for step:', currentStep);
             
-            for (let [key, value] of formData.entries()) {
-                applicationData[key] = value;
+            if (currentStep === 1) {
+                // Step1の場合は、個別のフィールドから値を取得
+                const familyComp = document.getElementById('familyComposition');
+                const youngChildren = document.getElementById('youngChildren');
+                const migrated = document.getElementById('migrated');
+                const amperage = document.getElementById('amperage');
+                const daytimeUsage = document.getElementById('daytimeUsage');
+                const allElectric = document.getElementById('allElectric');
+                const jalMileage = document.getElementById('jalMileage');
+                
+                if (familyComp) applicationData.familyComposition = familyComp.value;
+                if (youngChildren) applicationData.youngChildren = youngChildren.value;
+                if (migrated) applicationData.migrated = migrated.value;
+                if (amperage) applicationData.capacity = amperage.value;
+                if (daytimeUsage) applicationData.daytimeUsage = daytimeUsage.value;
+                if (allElectric) applicationData.allElectric = allElectric.value;
+                if (jalMileage) applicationData.jalMileage = jalMileage.value;
+                
+                // チェックボックスの値を取得
+                const equipmentCheckboxes = document.querySelectorAll('#equipmentCheckboxes input[name="equipment"]:checked');
+                applicationData.equipment = Array.from(equipmentCheckboxes).map(cb => cb.value);
+                
+                console.log('Step 1 data saved:', applicationData);
+            } else {
+                // Step2以降の場合は、フォームから値を取得
+                const currentForm = document.getElementById(`step${currentStep}Form`);
+                if (currentForm && currentForm.tagName === 'FORM') {
+                    const formData = new FormData(currentForm);
+                    for (let [key, value] of formData.entries()) {
+                        applicationData[key] = value;
+                    }
+                    console.log('Step', currentStep, 'data saved:', applicationData);
+                } else {
+                    console.error('Form not found or invalid for step:', currentStep);
+                }
             }
         }
 
         function updateSummary() {
             const summaryGrid = document.getElementById('summaryGrid');
+            
+            // 適用割引の表示
+            let discountText = '';
+            if (applicationData.youngChildren && applicationData.youngChildren !== "0人") {
+                discountText += 'すくすく赤ちゃんプラン（毎月100円割引）<br>';
+            }
+            if (applicationData.migrated === 'yes') {
+                discountText += 'IJUターン応援プラン（毎月200円割引）<br>';
+            }
+            if (applicationData.gasSet === 'yes') {
+                discountText += '<b>ガスセットプラン（毎月300円割引）</b><br>';
+            }
+            if (!discountText) {
+                discountText = 'なし';
+            }
+
             summaryGrid.innerHTML = `
+                <div class="info-item">
+                    <span class="info-label">申込者氏名（フリガナ）:</span>
+                    <span class="info-value">${applicationData.lastNameKana} ${applicationData.firstNameKana}</span>
+                </div>
                 <div class="info-item">
                     <span class="info-label">選択プラン:</span>
                     <span class="info-value">${getPlanName(applicationData.plan)}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">ガスセット:</span>
+                    <span class="info-value">${applicationData.gasSet === 'yes' ? 'はい' : 'いいえ'}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">契約容量:</span>
                     <span class="info-value">${applicationData.capacity}A</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">家族構成:</span>
-                    <span class="info-value">${applicationData.familyComposition}</span>
+                    <span class="info-label">適用割引:</span>
+                    <span class="info-value">${discountText}</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">3歳未満のお子様:</span>
-                    <span class="info-value">${applicationData.youngChildren}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">昼間の電気使用:</span>
-                    <span class="info-value">${applicationData.daytimeUsage === 'yes' ? 'あり' : 'なし'}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">お住まいはオール電化:</span>
-                    <span class="info-value">${applicationData.allElectric === 'yes' ? 'はい' : 'いいえ'}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">特定設備:</span>
-                    <span class="info-value">${applicationData.equipment && applicationData.equipment.length ? applicationData.equipment.join(', ') : 'なし'}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">JALマイレージ希望:</span>
-                    <span class="info-value">${applicationData.jalMileage === 'yes' ? 'はい' : 'いいえ'}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">お名前:</span>
-                    <span class="info-value">${applicationData.lastName} ${applicationData.firstName}</span>
+                    <span class="info-label">電話番号:</span>
+                    <span class="info-value">${applicationData.phone1}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">メールアドレス:</span>
@@ -1282,14 +1851,14 @@
             return planDetails[plan] ? planDetails[plan].name : '未選択';
         }
 
-        function getPaymentMethodName(method) {
-            const methods = {
-                'bank': '口座振替',
-                'credit': 'クレジットカード',
-                'convenience': 'コンビニ払い'
-            };
-            return methods[method] || '未選択';
-        }
+                 function getPaymentMethodName(method) {
+             const methods = {
+                 'bank': '口座振替',
+                 'credit': 'クレジットカード',
+                 'convenience': '払込票による支払い'
+             };
+             return methods[method] || '未選択';
+         }
 
         function submitApplication() {
             if (validateCurrentStep()) {
@@ -1395,8 +1964,17 @@
 
         // ガスセクションの表示制御
         function toggleGasSection() {
+            console.log('toggleGasSection() called');
             const gasSection = document.getElementById('gasSection');
+            console.log('Gas section found:', gasSection);
+            
+            if (!gasSection) {
+                console.error('Gas section not found!');
+                return;
+            }
+            
             const gasFields = gasSection.querySelectorAll('[required]');
+            console.log('Gas fields found:', gasFields.length);
             
             if (applicationData.gasSet === 'yes') {
                 gasSection.style.display = 'block';
@@ -1404,39 +1982,116 @@
                 gasFields.forEach(field => {
                     field.setAttribute('required', 'required');
                 });
+                console.log('Gas section displayed');
             } else {
                 gasSection.style.display = 'none';
                 // ガス関連フィールドの必須属性を削除
                 gasFields.forEach(field => {
                     field.removeAttribute('required');
                 });
+                console.log('Gas section hidden');
             }
         }
 
-        // ステップ管理を更新（ガスセクションの表示制御を含む）
-        function showStep(step) {
-            // 全てのステップを非表示
-            document.querySelectorAll('.form-step').forEach(form => {
-                form.classList.remove('active');
-            });
-            
-            // 指定されたステップを表示
-            document.getElementById(`step${step}Form`).classList.add('active');
-            
-            // Step2の場合、ガスセクションの表示制御
-            if (step === 2) {
-                toggleGasSection();
+
+
+        // ガスセット選択の処理
+        function selectGasSet(includeGas) {
+            if (includeGas) {
+                applicationData.gasSet = 'yes';
+                // ガスセット割引を即座に表示
+                showGasSetDiscount();
+            } else {
+                applicationData.gasSet = 'no';
             }
             
-            // ステップインジケーターを更新
-            updateStepIndicators(step);
+            // ポップアップを閉じる
+            closeGasOfferModal();
+            
+            // Step2に進む際のガスセクション表示制御を更新
+            if (currentStep === 2) {
+                toggleGasSection();
+            }
+        }
+
+        // ガスセット割引の表示
+        function showGasSetDiscount() {
+            const discountInfo = document.getElementById('discountInfo');
+            const discountText = document.getElementById('discountText');
+            
+            if (discountInfo && discountText) {
+                // 既存の割引情報がある場合は追加、ない場合は新規作成
+                let currentDiscounts = discountText.innerHTML;
+                if (currentDiscounts && currentDiscounts.includes('ガスセットプラン')) {
+                    return; // 既に表示されている場合は何もしない
+                }
+                
+                if (currentDiscounts) {
+                    currentDiscounts += '<br><b>ガスセットプラン（毎月300円割引）</b>';
+                } else {
+                    currentDiscounts = '<b>ガスセットプラン（毎月300円割引）</b>';
+                }
+                
+                discountText.innerHTML = currentDiscounts;
+                discountInfo.style.display = 'block';
+            }
+        }
+
+        // ポップアップを閉じる
+        function closeGasOfferModal() {
+            document.getElementById('gasOfferModal').style.display = 'none';
         }
 
         // 初期化
         window.addEventListener('load', function() {
+            console.log('Page loaded, initializing...');
             loadInitialInfo();
+            console.log('Initial info loaded, showing step 1...');
             showStep(1);
+            
+            // ページ読み込み時にガスセット確認ポップアップを表示
+            setTimeout(() => {
+                showGasOfferModal();
+            }, 500);
         });
+
+                 // ガスセット確認ポップアップを表示
+         function showGasOfferModal() {
+             document.getElementById('gasOfferModal').style.display = 'flex';
+         }
+
+         // 支払方法の選択に応じてメッセージを表示
+         function showPaymentMessage(paymentMethod) {
+             const messageDiv = document.getElementById('paymentMessage');
+             const messageText = document.getElementById('paymentMessageText');
+             
+             if (!paymentMethod) {
+                 messageDiv.style.display = 'none';
+                 return;
+             }
+             
+             let message = '';
+             switch (paymentMethod) {
+                 case 'bank':
+                     message = '以降は、利用する口座情報の入力になります(デモのため省略)';
+                     break;
+                 case 'credit':
+                     message = '以降は、利用するクレジットカード情報の入力になります(デモのため省略)';
+                     break;
+                 case 'convenience':
+                     message = '<strong>＜注意＞</strong>お手続きのデジタル化推進のため、払込票による支払につきましては、毎月110円の発行手数料が追加で発生いたします。ご理解とご協力をお願いいたします。';
+                     break;
+                 default:
+                     message = '';
+             }
+             
+             if (message) {
+                 messageText.innerHTML = message;
+                 messageDiv.style.display = 'block';
+             } else {
+                 messageDiv.style.display = 'none';
+             }
+         }
     </script>
 </body>
 </html>
