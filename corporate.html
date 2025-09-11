@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>法人のお客さま - 九州電力株式会社</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 法人ページ専用スタイル */
+        .corporate-links {
+            background: #f8f9fa;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .corporate-links-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .corporate-link {
+            color: #007BC2;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .corporate-link:hover {
+            background: #e3f2fd;
+        }
+
+        .corporate-main-nav {
+            background: white;
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .corporate-main-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .corporate-main-nav-item {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .corporate-main-nav-item:hover {
+            color: #007BC2;
+            border-bottom-color: #007BC2;
+        }
+
+        .corporate-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .corporate-section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .corporate-section-line {
+            width: 4px;
+            height: 30px;
+            background: #007BC2;
+            margin-right: 15px;
+        }
+
+        .corporate-section-title h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .corporate-subsection {
+            margin-bottom: 40px;
+        }
+
+        .corporate-subsection h3 {
+            font-size: 1.2rem;
+            color: #007BC2;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #007BC2;
+            font-weight: bold;
+        }
+
+        .corporate-service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .corporate-service-box {
+            background: white;
+            border: 2px solid #28a745;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .corporate-service-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.2);
+            border-color: #20c997;
+        }
+
+        .corporate-service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #28a745;
+        }
+
+        .corporate-service-text {
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        .corporate-scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #007BC2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .corporate-scroll-top:hover {
+            background: #005A91;
+            transform: translateY(-2px);
+        }
+
+        .corporate-chatbot {
+            position: fixed;
+            bottom: 30px;
+            right: 100px;
+            width: 60px;
+            height: 60px;
+            background: #6f42c1;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .corporate-chatbot:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .corporate-links-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .corporate-main-nav-content {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .corporate-service-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-top">
+                <div class="logo">
+                    <img src="九州電力ロゴ.png" alt="九州電力株式会社" class="logo-img">
+                </div>
+                <div class="header-actions">
+                <div class="utility-nav">
+                    <a href="index.html" class="corporate-btn">個人のお客さま</a>
+                    <div class="language-selector">
+                        <select id="languageSelect">
+                            <option value="ja">languages</option>
+                            <option value="en">English</option>
+                            <option value="ko">한국어</option>
+                            <option value="zh">中文</option>
+                        </select>
+                    </div>
+                    <button class="login-btn">My九電ログイン</button>
+                </div>
+                <div class="nav-bottom">
+                    <div class="nav-links">
+                        <a href="#faq" class="faq-link">よくあるご質問</a>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" placeholder="キーワードを入力" class="search-input">
+                        <button class="search-btn">🔍</button>
+                    </div>
+                </div>
+                <button class="menu-toggle" id="menuToggle">☰</button>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <div class="category-menu">
+                    <a href="#" class="category-btn blue">引越し・各種手続き</a>
+                    <a href="#" class="category-btn orange">電気</a>
+                    <a href="#" class="category-btn pink">オール電化</a>
+                    <a href="#" class="category-btn green">ガス</a>
+                    <a href="#" class="category-btn light-blue">くらしサービス</a>
+                    <a href="#" class="category-btn dark-green">イベント・営業所</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 法人用リンクバー -->
+    <div class="corporate-links">
+        <div class="corporate-links-content">
+            <a href="#" class="corporate-link">落雷情報</a>
+            <a href="#" class="corporate-link">でんき予報</a>
+            <a href="#" class="corporate-link">よくあるご質問・お問い合わせ</a>
+            <a href="#" class="corporate-link">A+ 文字サイズ</a>
+            <a href="#" class="corporate-link">ENGLISH</a>
+            <a href="#" class="corporate-link">Facebook</a>
+            <a href="#" class="corporate-link">X</a>
+            <a href="#" class="corporate-link">YouTube</a>
+            <a href="#" class="corporate-link">Instagram</a>
+        </div>
+    </div>
+
+    <!-- 法人用メインナビゲーション -->
+    <nav class="corporate-main-nav">
+        <div class="corporate-main-nav-content">
+            <a href="#" class="corporate-main-nav-item">企業情報</a>
+            <a href="#" class="corporate-main-nav-item">事業概要</a>
+            <a href="#" class="corporate-main-nav-item">IR情報</a>
+            <a href="#" class="corporate-main-nav-item">サステナビリティ</a>
+            <a href="#" class="corporate-main-nav-item">プレスリリース/お知らせ</a>
+        </div>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <main class="corporate-content">
+        <div class="corporate-section-title">
+            <div class="corporate-section-line"></div>
+            <h2>サービス別メニュー</h2>
+        </div>
+
+        <div class="corporate-subsection">
+            <h3>電気料金について</h3>
+            <div class="corporate-service-grid">
+                <div class="corporate-service-box">
+                    <div class="corporate-service-icon">📊</div>
+                    <div class="corporate-service-text">料金・使用量の実績を
+確認したい</div>
+                </div>
+                <div class="corporate-service-box">
+                    <div class="corporate-service-icon">💰</div>
+                    <div class="corporate-service-text">お支払い方法について
+知りたい</div>
+                </div>
+                <div class="corporate-service-box">
+                    <div class="corporate-service-icon">💡</div>
+                    <div class="corporate-service-text">料金メニュー・単価
+電源構成について知りたい</div>
+                </div>
+                <div class="corporate-service-box">
+                    <div class="corporate-service-icon">🧮</div>
+                    <div class="corporate-service-text">具体的な契約内容や
+料金を試算したい</div>
+                </div>
+                <div class="corporate-service-box">
+                    <div class="corporate-service-icon">🔌</div>
+                    <div class="corporate-service-text">料金の仕組みについて
+知りたい</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- スクロールトップボタン -->
+    <button class="corporate-scroll-top" onclick="scrollToTop()">↑</button>
+
+    <!-- チャットボット -->
+    <button class="corporate-chatbot">🧠</button>
+
+    <script>
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // スクロールトップボタンの表示制御
+        window.addEventListener('scroll', function() {
+            const scrollTopBtn = document.querySelector('.corporate-scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.style.display = 'block';
+            } else {
+                scrollTopBtn.style.display = 'none';
+            }
+        });
+
+        // 初期状態ではスクロールトップボタンを非表示
+        document.querySelector('.corporate-scroll-top').style.display = 'none';
+    </script>
+</body>
+</html>
