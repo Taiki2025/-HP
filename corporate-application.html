@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>法人用お申し込み - 九州電力株式会社</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #007BC2 0%, #005A91 40%, #003d6b 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+        }
+
+        .application-container {
+            max-width: 900px;
+            margin: 80px auto 0 auto;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 3;
+        }
+
+        .application-header { text-align: center; margin-bottom: 30px; }
+        .application-title { font-size: 1.8rem; color: #007BC2; margin-bottom: 8px; font-weight: 600; }
+        .application-subtitle { color: #666; }
+
+        .steps-container { display: flex; justify-content: center; gap: 0; max-width: 600px; margin: 0 auto 20px; }
+        .step-item { display: flex; flex-direction: column; align-items: center; flex: 1; position: relative; }
+        .step-item:not(:last-child)::after { content:''; position:absolute; top:25px; right:-50%; width:calc(100% - 20px); height:3px; background:#e0e6ed; }
+        .step-number { width:50px; height:50px; border-radius:50%; background:#e0e6ed; color:#666; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:1.1rem; margin-bottom:10px; border:3px solid #f8f9fa; }
+        .step-item.active .step-number { background: linear-gradient(135deg, #007BC2 0%, #005A91 100%); color:#fff; }
+        .step-title { font-size: 0.85rem; color: #666; min-height: 24px; text-align:center; }
+        .step-item.active .step-title { color:#007BC2; font-weight:600; }
+
+        .form-step { display:none; background:white; border-radius:12px; padding: 10px 0 0 0; }
+        .form-step.active { display:block; }
+        .form-section { margin-top: 10px; }
+        .form-row { display:grid; grid-template-columns: 1fr 1fr; gap:20px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group.full-width { grid-column: 1 / -1; }
+        .form-label { display:block; font-weight:600; color:#333; margin-bottom:8px; font-size:0.95rem; }
+        .form-input, .form-select { width:100%; padding: 14px 16px; border:2px solid #e6eaf2; border-radius:12px; font-size:1rem; background:#fafbfc; font-family: inherit; }
+        .form-input:focus, .form-select:focus { outline:none; border-color:#007BC2; background:white; box-shadow:0 0 0 4px rgba(0,123,194,0.08); }
+
+        .form-actions { display:flex; gap:20px; justify-content:center; margin-top:30px; padding-top:20px; border-top:1px solid #e2e8f0; }
+        .btn-next, .btn-prev, .btn-submit { border:none; padding: 12px 28px; border-radius: 24px; font-size: 1rem; font-weight:600; cursor:pointer; transition: all 0.3s ease; }
+        .btn-next { background: linear-gradient(135deg, #007BC2 0%, #005A91 100%); color:white; }
+        .btn-prev { background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%); color:white; }
+        .btn-submit { background:#10b981; color:white; border-radius:8px; }
+        .btn-next:hover { background: linear-gradient(135deg, #005A91 0%, #003d6b 100%); transform: translateY(-2px); }
+        .btn-prev:hover { background: linear-gradient(135deg, #5a6268 0%, #495057 100%); transform: translateY(-2px); }
+        .btn-submit:hover { background:#059669; transform: translateY(-2px); }
+
+        @media (max-width: 768px) {
+            .form-row { grid-template-columns: 1fr; gap: 0; }
+            .application-container { margin-top: 70px; padding: 30px 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="application-container">
+        <div class="application-header">
+            <div class="steps-container">
+                <div class="step-item active" id="s1">
+                    <div class="step-number">1</div>
+                    <div class="step-title">法人情報</div>
+                </div>
+                <div class="step-item" id="s2">
+                    <div class="step-number">2</div>
+                    <div class="step-title">契約情報</div>
+                </div>
+                <div class="step-item" id="s3">
+                    <div class="step-number">3</div>
+                    <div class="step-title">請求・支払い</div>
+                </div>
+            </div>
+            <h2 class="application-title">法人用お申し込み</h2>
+            <p class="application-subtitle">必要事項をご入力ください（デモ）</p>
+        </div>
+
+        <!-- Step 1: 法人情報 -->
+        <div class="form-step active" id="step1">
+            <div class="form-section">
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label class="form-label">お客様の法人名<span style="color:#ef4444">*</span></label>
+                        <input type="text" class="form-input" id="companyName" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">本社住所<span style="color:#ef4444">*</span></label>
+                        <input type="text" class="form-input" id="hqAddress" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">代表電話番号<span style="color:#ef4444">*</span></label>
+                        <input type="tel" class="form-input" id="hqPhone" placeholder="例：0927613030" inputmode="numeric" pattern="\\d*" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label class="form-label">
+                            <input type="checkbox" id="sameAsHQ" style="transform: scale(1.2); margin-right:8px;">
+                            利用先住所・電話番号が本社情報と一致する
+                        </label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">利用先住所<span style="color:#ef4444">*</span></label>
+                        <input type="text" class="form-input" id="siteAddress" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">利用先電話番号<span style="color:#ef4444">*</span></label>
+                        <input type="tel" class="form-input" id="sitePhone" placeholder="例：0927613030" inputmode="numeric" pattern="\\d*" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-next" onclick="goNext()">次へ進む</button>
+            </div>
+        </div>
+
+        <!-- Step 2: 契約情報 -->
+        <div class="form-step" id="step2">
+            <div class="form-section">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">契約メニュー<span style="color:#ef4444">*</span></label>
+                        <select class="form-select" id="contractMenu" required>
+                            <option value="">選択してください</option>
+                            <option value="jouryoC">従量電灯C（事業所向け）</option>
+                            <option value="lowVoltage">低圧電力（動力）</option>
+                            <option value="businessTime">業務用時間帯別電灯</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">契約電力（kW）<span style="color:#ef4444">*</span></label>
+                        <input type="tel" class="form-input" id="contractPower" placeholder="例：100" inputmode="numeric" pattern="\\d{1,4}" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4)" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">利用開始日<span style="color:#ef4444">*</span></label>
+                        <input type="date" class="form-input" id="startDate" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-prev" onclick="goPrev()">前へ戻る</button>
+                <button type="button" class="btn-next" onclick="goNext()">次へ進む</button>
+            </div>
+        </div>
+
+        <!-- Step 3: 請求・支払い -->
+        <div class="form-step" id="step3">
+            <div class="form-section">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">請求先部署名<span style="color:#ef4444">*</span></label>
+                        <input type="text" class="form-input" id="billingDept" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">支払方法<span style="color:#ef4444">*</span></label>
+                        <select class="form-select" id="paymentMethod" required onchange="showPaymentNote(this.value)">
+                            <option value="">選択してください</option>
+                            <option value="bank">口座振替（手数料無料）</option>
+                            <option value="credit">クレジットカード</option>
+                            <option value="invoice">請求書払い</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="paymentNote" style="display:none; margin-top: 12px; padding: 12px; background:#f8fbff; border:1px solid #e6f2ff; border-radius:8px;">
+                    <p id="paymentNoteText" style="margin:0; color:#007BC2; font-size:0.95rem;"></p>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-prev" onclick="goPrev()">前へ戻る</button>
+                <button type="button" class="btn-submit" onclick="submitCorporate()">申し込みを完了する（デモ）</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+
+        function setActiveStep(step) {
+            document.querySelectorAll('.form-step').forEach((s, i) => {
+                s.classList.toggle('active', i === step - 1);
+            });
+            document.querySelectorAll('.step-item').forEach((el, i) => {
+                el.classList.toggle('active', i === step - 1);
+            });
+        }
+
+        function validateStep(step) {
+            const form = document.getElementById(`step${step}`);
+            const required = form.querySelectorAll('[required]');
+            let ok = true;
+            required.forEach(f => {
+                if (!f.value || f.value.trim() === '') { f.style.borderColor = '#ef4444'; ok = false; }
+                else { f.style.borderColor = '#e6eaf2'; }
+            });
+            if (!ok) alert('必須項目を入力してください。');
+            return ok;
+        }
+
+        function goNext() {
+            if (!validateStep(currentStep)) return;
+            if (currentStep < 3) { currentStep++; setActiveStep(currentStep); }
+        }
+        function goPrev() { if (currentStep > 1) { currentStep--; setActiveStep(currentStep); } }
+
+        // 本社情報と一致チェック
+        document.addEventListener('DOMContentLoaded', () => {
+            const same = document.getElementById('sameAsHQ');
+            const hqAddr = document.getElementById('hqAddress');
+            const hqPhone = document.getElementById('hqPhone');
+            const siteAddr = document.getElementById('siteAddress');
+            const sitePhone = document.getElementById('sitePhone');
+            if (same) {
+                same.addEventListener('change', () => {
+                    if (same.checked) {
+                        siteAddr.value = hqAddr.value;
+                        sitePhone.value = hqPhone.value;
+                        siteAddr.setAttribute('disabled', 'disabled');
+                        sitePhone.setAttribute('disabled', 'disabled');
+                    } else {
+                        siteAddr.removeAttribute('disabled');
+                        sitePhone.removeAttribute('disabled');
+                    }
+                });
+            }
+        });
+
+        // 支払方法の注記（デモ）
+        function showPaymentNote(method) {
+            const box = document.getElementById('paymentNote');
+            const text = document.getElementById('paymentNoteText');
+            let msg = '';
+            if (method === 'bank') msg = '以降は、利用する口座情報の入力になります（デモのため省略）';
+            else if (method === 'credit') msg = '以降は、利用するクレジットカード情報の入力になります（デモのため省略）';
+            else if (method === 'invoice') msg = '請求書払いをご希望の場合、締め支払条件などの確認が必要です（デモのため省略）';
+            if (msg) { text.innerHTML = msg; box.style.display = 'block'; } else { box.style.display = 'none'; }
+        }
+
+        function submitCorporate() {
+            if (!validateStep(3)) return;
+            alert('法人お申し込み（デモ）を受け付けました。\n担当よりご連絡いたします。');
+            window.location.href = 'corporate.html';
+        }
+    </script>
+</body>
+</html>
+
+

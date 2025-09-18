@@ -7,33 +7,8 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         /* 法人ページ専用スタイル */
-        .corporate-links {
-            background: #f8f9fa;
-            padding: 10px 0;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .corporate-links-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .corporate-link {
-            color: #007BC2;
-            text-decoration: none;
-            font-size: 0.85rem;
-            padding: 4px 8px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .corporate-link:hover {
-            background: #e3f2fd;
+        body {
+            background-color: #f8f9fa;
         }
 
         .corporate-main-nav {
@@ -70,6 +45,8 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px;
+            background-color: #f8f9fa;
+            min-height: calc(100vh - 200px);
         }
 
         .corporate-section-title {
@@ -127,10 +104,26 @@
             border-color: #20c997;
         }
 
+        .new-contract-box {
+            border-color: #007BC2 !important;
+            background: linear-gradient(135deg, #f8fbff 0%, #e6f2ff 100%);
+            position: relative;
+        }
+
+        .new-contract-box:hover {
+            border-color: #005A91 !important;
+            box-shadow: 0 6px 20px rgba(0, 123, 194, 0.3) !important;
+        }
+
+
         .corporate-service-icon {
             font-size: 2.5rem;
             margin-bottom: 15px;
             color: #28a745;
+        }
+
+        .new-contract-box .corporate-service-icon {
+            color: #007BC2;
         }
 
         .corporate-service-text {
@@ -161,31 +154,104 @@
             transform: translateY(-2px);
         }
 
-        .corporate-chatbot {
+        .corporate-chatbot-container {
             position: fixed;
-            bottom: 30px;
-            right: 100px;
-            width: 60px;
-            height: 60px;
-            background: #6f42c1;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+        }
+
+        .corporate-chatbot {
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            border: none;
+            background: #ffffff;
+            border: 3px solid #007BC2;
+            color: white;
+            font-size: 24px;
             cursor: pointer;
-            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 82, 204, 0.3);
             transition: all 0.3s ease;
-            z-index: 1000;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
         }
 
         .corporate-chatbot:hover {
             transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(0, 123, 194, 0.4);
+        }
+
+        .corporate-chatbot img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            mix-blend-mode: multiply;
+            background: transparent;
+        }
+
+        /* 吹き出しメッセージ */
+        .corporate-speech-bubble {
+            position: absolute;
+            bottom: 85px;
+            right: -10px;
+            background: #007BC2;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0, 123, 194, 0.3);
+            opacity: 0;
+            transform: translateY(10px) scale(0.8);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 9999;
+            cursor: pointer;
+            animation: gentle-bounce 2s ease-in-out infinite;
+        }
+
+        .corporate-speech-bubble.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .corporate-speech-bubble:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 123, 194, 0.4);
+        }
+
+        /* 吹き出しの軽いバウンスアニメーション */
+        @keyframes gentle-bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-3px);
+            }
+        }
+
+        .corporate-bubble-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .corporate-bubble-arrow {
+            position: absolute;
+            bottom: -8px;
+            right: 20px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #007BC2;
         }
 
         @media (max-width: 768px) {
-            .corporate-links-content {
-                flex-direction: column;
-                gap: 10px;
-            }
-
             .corporate-main-nav-content {
                 flex-wrap: wrap;
                 gap: 15px;
@@ -230,33 +296,9 @@
                 <button class="menu-toggle" id="menuToggle">☰</button>
                 </div>
             </div>
-            <nav class="main-nav">
-                <div class="category-menu">
-                    <a href="#" class="category-btn blue">引越し・各種手続き</a>
-                    <a href="#" class="category-btn orange">電気</a>
-                    <a href="#" class="category-btn pink">オール電化</a>
-                    <a href="#" class="category-btn green">ガス</a>
-                    <a href="#" class="category-btn light-blue">くらしサービス</a>
-                    <a href="#" class="category-btn dark-green">イベント・営業所</a>
-                </div>
-            </nav>
         </div>
     </header>
 
-    <!-- 法人用リンクバー -->
-    <div class="corporate-links">
-        <div class="corporate-links-content">
-            <a href="#" class="corporate-link">落雷情報</a>
-            <a href="#" class="corporate-link">でんき予報</a>
-            <a href="#" class="corporate-link">よくあるご質問・お問い合わせ</a>
-            <a href="#" class="corporate-link">A+ 文字サイズ</a>
-            <a href="#" class="corporate-link">ENGLISH</a>
-            <a href="#" class="corporate-link">Facebook</a>
-            <a href="#" class="corporate-link">X</a>
-            <a href="#" class="corporate-link">YouTube</a>
-            <a href="#" class="corporate-link">Instagram</a>
-        </div>
-    </div>
 
     <!-- 法人用メインナビゲーション -->
     <nav class="corporate-main-nav">
@@ -279,6 +321,11 @@
         <div class="corporate-subsection">
             <h3>電気料金について</h3>
             <div class="corporate-service-grid">
+                <div class="corporate-service-box new-contract-box">
+                    <div class="corporate-service-icon">🆕</div>
+                    <div class="corporate-service-text">新規ご契約の方は
+コチラ</div>
+                </div>
                 <div class="corporate-service-box">
                     <div class="corporate-service-icon">📊</div>
                     <div class="corporate-service-text">料金・使用量の実績を
@@ -312,7 +359,19 @@
     <button class="corporate-scroll-top" onclick="scrollToTop()">↑</button>
 
     <!-- チャットボット -->
-    <button class="corporate-chatbot">🧠</button>
+    <div class="corporate-chatbot-container">
+        <button class="corporate-chatbot">
+            <img src="九州電力「みらいくん」.png" alt="みらいくん">
+        </button>
+        
+        <!-- 吹き出しメッセージ -->
+        <div class="corporate-speech-bubble" id="corporateSpeechBubble">
+            <div class="corporate-bubble-content">
+                ちゃちゃっと解決！
+            </div>
+            <div class="corporate-bubble-arrow"></div>
+        </div>
+    </div>
 
     <script>
         function scrollToTop() {
@@ -334,6 +393,63 @@
 
         // 初期状態ではスクロールトップボタンを非表示
         document.querySelector('.corporate-scroll-top').style.display = 'none';
+
+        // 吹き出しメッセージのパターン
+        const corporateSpeechMessages = [
+            'ちゃちゃっと解決！',
+            '相談してね！',
+            'こっちでも手続きできるよ！'
+        ];
+
+        let corporateCurrentMessageIndex = 0;
+
+        // 吹き出しの表示制御
+        function showCorporateSpeechBubble() {
+            const speechBubble = document.getElementById('corporateSpeechBubble');
+            const bubbleContent = speechBubble.querySelector('.corporate-bubble-content');
+            
+            if (!speechBubble || !bubbleContent) return;
+
+            // メッセージをローテーションで変更
+            bubbleContent.textContent = corporateSpeechMessages[corporateCurrentMessageIndex];
+            corporateCurrentMessageIndex = (corporateCurrentMessageIndex + 1) % corporateSpeechMessages.length;
+
+            speechBubble.classList.add('show');
+            
+            // 6秒後に自動で非表示
+            setTimeout(() => {
+                hideCorporateSpeechBubble();
+            }, 6000);
+        }
+
+        function hideCorporateSpeechBubble() {
+            const speechBubble = document.getElementById('corporateSpeechBubble');
+            if (speechBubble) {
+                speechBubble.classList.remove('show');
+            }
+        }
+
+        // サイト表示の瞬間に表示（500ms後）
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                showCorporateSpeechBubble();
+            }, 500);
+        });
+
+        // 定期的に表示（15秒ごと）
+        setInterval(() => {
+            showCorporateSpeechBubble();
+        }, 15000);
+
+        // 吹き出しをクリックしたら非表示にする
+        document.getElementById('corporateSpeechBubble').addEventListener('click', function() {
+            hideCorporateSpeechBubble();
+        });
+
+        // 新規契約ボックスのクリック機能
+        document.querySelector('.new-contract-box').addEventListener('click', function() {
+            window.location.href = 'corporate-application.html';
+        });
     </script>
 </body>
 </html>
